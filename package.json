@@ -1,0 +1,30 @@
+{
+  "name": "updatify",
+  "version": "0.0.1",
+  "description": "CLI app for updating Node and NPM on Windows.",
+  "keywords": [
+    "updatify",
+    "node",
+    "npm",
+    "update",
+    "windows"
+  ],
+  "bin": {
+    "updatify": "cli.js"
+  },
+  "author": "Mark Tiedemann <www.marktiedemann@gmail.com>",
+  "license": "WTFPL",
+  "dependencies": {
+    "node-latest": "^1.0.0",
+    "ora": "^0.2.1",
+    "request": "^2.72.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MarkTiedemann/updatify.git"
+  },
+  "bugs": {
+    "url": "https://github.com/MarkTiedemann/updatify/issues"
+  },
+  "homepage": "https://github.com/MarkTiedemann/updatify"
+}
