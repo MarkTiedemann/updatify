@@ -4,17 +4,20 @@
 const { node, npm } = require('node-latest')
 const updateNode = require('./lib/update-node')
 const updateNpm = require('./lib/update-npm')
-const spinner = require('ora')('')
+const { Spinner } = require('cli-spinner')
+
+let spinner = new Spinner('')
+spinner.setSpinnerString(20)
 
 spinner.start()
 
 const log = (text) => {
-    spinner.stop()
+    spinner.stop(true)
     console.log(text)
 }
 
 const logErr = (err, text) => {
-    spinner.stop()
+    spinner.stop(true)
     console.error(`Error: ${text} (${err.message})`)
 }
 
@@ -27,7 +30,7 @@ switch (args.shift()) {
         let check = args.shift()
 
         if ('node' === check) {
-            spinner.text = 'Checking latest Node version'
+            spinner.setSpinnerTitle('Checking latest Node version')
             node.isLatest()
                 .then(is => {
                     log(!is)
@@ -38,7 +41,7 @@ switch (args.shift()) {
         }
 
         else if ('npm' === check) {
-            spinner.text = 'Checking latest NPM version'
+            spinner.setSpinnerTitle('Checking latest NPM version')
             npm.isLatest()
                 .then(is => {
                     log(!is)
