@@ -8,7 +8,6 @@ const { Spinner } = require('cli-spinner')
 
 let spinner = new Spinner('')
 spinner.setSpinnerString(20)
-
 spinner.start()
 
 const log = (text) => {
@@ -57,7 +56,7 @@ switch (args.shift()) {
 
     case 'node':
 
-        spinner.text = 'Checking latest Node version'
+        spinner.setSpinnerTitle('Checking latest Node version')
         node.isLatest()
             .then(is => {
                 if (!is) updateNode(spinner, log, logErr)
@@ -71,7 +70,7 @@ switch (args.shift()) {
 
     case 'npm':
 
-        spinner.text = 'Checking latest NPM version'
+        spinner.setSpinnerTitle('Checking latest NPM version')
         npm.isLatest()
             .then(is => {
                 if (!is) updateNpm(spinner, log, logErr)
