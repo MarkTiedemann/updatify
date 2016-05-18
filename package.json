@@ -1,6 +1,6 @@
 {
   "name": "updatify",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "CLI app for updating Node and NPM on Windows.",
   "keywords": [
     "updatify",
