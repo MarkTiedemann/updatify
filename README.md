@@ -19,10 +19,8 @@ npm i -g updatify
 
 updatify check node
 
-# downloads the newest node installer from
-# https://nodejs.org/dist/vX.X.X/node-vX.X.X-x64.msi
-# then runs the installer by executing
-# start "" node-vX.X.X-x64.msi
+# downloads the latest Node installer into the
+# Downloads directory and starts it
 
 updatify node
 ```
