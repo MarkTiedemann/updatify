@@ -3,7 +3,7 @@
 
 **CLI app for updating Node and npm on Windows.**
 
-[![](https://img.shields.io/node/v/updatify.svg)](https://www.npmjs.com/package/updatify)
+[![](https://david-dm.org/MarkTiedemann/updatify.svg)](https://david-dm.org/MarkTiedemann/updatify) [![](https://img.shields.io/node/v/updatify.svg)](https://www.npmjs.com/package/updatify)
 
 ## Installation
 
