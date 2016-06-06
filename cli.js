@@ -12,7 +12,7 @@ switch (args.shift()) {
 
     case 'check':
 
-        let check = args.shift()
+        const check = args.shift()
 
         if ('node' === check) {
             spinner.update('Checking latest Node version')
@@ -59,19 +59,29 @@ switch (args.shift()) {
 
     case 'npm':
 
-        spinner.update('Checking latest NPM version')
-        npm.isLatest()
-            .then(is => {
-                if (!is) {
-                    spinner.update('Installing NPM')
-                    exec('curl -L https://www.npmjs.org/install.sh | sh', err => {
-                        if (err) spinner.fail(err)
-                        else spinner.success('Latest NPM version installed')
-                    })
-                }
-                else spinner.success('NPM is up to date')
+        if ('--force' === args.shift()) {
+            spinner.update('Installing NPM')
+            exec('curl -L https://www.npmjs.org/install.sh | sh', err => {
+                if (err) spinner.fail(err)
+                else spinner.success('Latest NPM version installed')
             })
-            .catch(err => spinner.fail(err))
+        }
+
+        else {
+            spinner.update('Checking latest NPM version')
+            npm.isLatest()
+                .then(is => {
+                    if (!is) {
+                        spinner.update('Installing NPM')
+                        exec('curl -L https://www.npmjs.org/install.sh | sh', err => {
+                            if (err) spinner.fail(err)
+                            else spinner.success('Latest NPM version installed')
+                        })
+                    }
+                    else spinner.success('NPM is up to date')
+                })
+                .catch(err => spinner.fail(err))
+        }
 
         break
 

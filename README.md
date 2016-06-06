@@ -1,7 +1,7 @@
 
 # updatify
 
-**CLI app for updating Node and NPM on Windows.**
+**CLI app for updating Node and npm on Windows.**
 
 ## Installation
 
@@ -35,5 +35,13 @@ updatify check npm
 # curl -L https://www.npmjs.org/install.sh | sh
 
 updatify npm
+
+# installs the newest npm version without
+# any additional checks
+#
+# this options is useful when your npm version
+# is broken
+
+updatify npm --force
 ```
-**Note:** Updating NPM requires `sh` (which comes with [Git For Windows](https://git-for-windows.github.io/), e.g.) and [`curl`](https://curl.haxx.se/).
+**Note:** Updating npm requires `sh` (which comes with [Git For Windows](https://git-for-windows.github.io/), for example) and [`curl`](https://curl.haxx.se/).
