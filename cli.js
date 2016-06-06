@@ -26,10 +26,10 @@ switch (args.shift()) {
         }
 
         else if ('npm' === check) {
-            spinner.update('Checking latest NPM version')
+            spinner.update('Checking latest npm version')
             npm.isLatest()
-                .then(is => is ? spinner.success('NPM is up to date')
-                               : spinner.fail('NPM needs to be updated'))
+                .then(is => is ? spinner.success('npm is up to date')
+                               : spinner.fail('npm needs to be updated'))
                 .catch(err => spinner.fail(err))
         }
 
@@ -62,27 +62,23 @@ switch (args.shift()) {
 
     case 'npm':
 
-        if ('--force' === args.shift()) {
-            spinner.update('Installing NPM')
+        const updateNpm = () => {
+            spinner.update('Installing npm')
             exec('curl -L https://www.npmjs.org/install.sh | sh', err => {
                 if (err) spinner.fail(err)
-                else spinner.success('Latest NPM version installed')
+                else spinner.success('Latest npm version installed')
             })
         }
 
+        const force = args.shift()
+
+        if ('--force' === force || '-f' === force) updateNpm()
+
         else {
-            spinner.update('Checking latest NPM version')
+            spinner.update('Checking latest npm version')
             npm.isLatest()
-                .then(is => {
-                    if (!is) {
-                        spinner.update('Installing NPM')
-                        exec('curl -L https://www.npmjs.org/install.sh | sh', err => {
-                            if (err) spinner.fail(err)
-                            else spinner.success('Latest NPM version installed')
-                        })
-                    }
-                    else spinner.success('NPM is up to date')
-                })
+                .then(is => is ? spinner.success('npm is up to date')
+                               : updateNpm())
                 .catch(err => spinner.fail(err))
         }
 
