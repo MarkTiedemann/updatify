@@ -3,22 +3,8 @@
 
 const { node, npm } = require('node-latest')
 const msi = require('node-msi')
-const updateNpm = require('./lib/update-npm')
-const { Spinner } = require('cli-spinner')
-
-let spinner = new Spinner('')
-spinner.setSpinnerString(20)
-spinner.start()
-
-const log = (text) => {
-    spinner.stop(true)
-    console.log(text)
-}
-
-const logErr = (err, text) => {
-    spinner.stop(true)
-    console.error(`Error: ${text} (${err.message})`)
-}
+const { exec } = require('child_process')
+const spinner = require('spinn3r')('')
 
 const args = process.argv.slice(2)
 
@@ -29,76 +15,67 @@ switch (args.shift()) {
         let check = args.shift()
 
         if ('node' === check) {
-            spinner.setSpinnerTitle('Checking latest Node version')
+            spinner.update('Checking latest Node version')
             node.isLatest()
-                .then(is => {
-                    log(!is)
-                })
-                .catch(err => {
-                    logErr(err, 'Could not check latest Node version')
-                })
+                .then(is => is ? spinner.success('Node is up to date')
+                               : spinner.fail('Node needs to be updated'))
+                .catch(err => spinner.fail(err))
         }
 
         else if ('npm' === check) {
-            spinner.setSpinnerTitle('Checking latest NPM version')
+            spinner.update('Checking latest NPM version')
             npm.isLatest()
-                .then(is => {
-                    log(!is)
-                })
-                .catch(err => {
-                    logErr(err, 'Could not check latest Node version')
-                })
+                .then(is => is ? spinner.success('NPM is up to date')
+                               : spinner.fail('NPM needs to be updated'))
+                .catch(err => spinner.fail(err))
         }
 
-        else log('Invalid command')
+        else spinner.fail('Invalid command')
 
         break
 
     case 'node':
 
-        spinner.setSpinnerTitle('Checking latest Node version')
+        spinner.update('Checking latest Node version')
         node.isLatest()
             .then(is => {
                 if (!is) {
-                    spinner.setSpinnerTitle('Downloading latest Node installer')
+                    spinner.update('Downloading latest Node installer')
                     msi.fetch()
-                        .catch(err => {
-                            logErr(err, 'Could not download latest Node installer')
-                        })
                         .then(path => {
-                            spinner.setSpinnerTitle('Starting latest Node installer')
+                            spinner.update('Starting latest Node installer')
                             return msi.start(path)
                         })
                         .then(() => {
-                            log('Latest Node installer started')
+                            spinner.success('Latest Node installer started')
                         })
-                        .catch(err => {
-                            logErr(err, 'Could not start latest Node installer')
-                        })
+                        .catch(err => spinner.fail(err))
                 }
-                else log('Node version is up to date')
+                else spinner.success('Node is up to date')
             })
-            .catch(err => {
-                logErr(err, 'Could not check latest Node version')
-            })
+            .catch(err => spinner.fail(err))
 
         break
 
     case 'npm':
 
-        spinner.setSpinnerTitle('Checking latest NPM version')
+        spinner.update('Checking latest NPM version')
         npm.isLatest()
             .then(is => {
-                if (!is) updateNpm(spinner, log, logErr)
-                else log('NPM version is up to date')
+                if (!is) {
+                    spinner.update('Installing NPM')
+                    exec('curl -L https://www.npmjs.org/install.sh | sh', err => {
+                        if (err) spinner.fail(err)
+                        else spinner.success('Latest NPM version installed')
+                    })
+                }
+                else spinner.success('NPM is up to date')
             })
-            .catch(err => {
-                logErr(err, 'Could not check latest Node version')
-            })
+            .catch(err => spinner.fail(err))
 
         break
 
     default:
-        log('Invalid command')
+        spinner.fail('Invalid command')
         break
 }
