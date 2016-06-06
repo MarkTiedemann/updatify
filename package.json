@@ -17,7 +17,6 @@
   "dependencies": {
     "node-latest": "^1.0.0",
     "node-msi": "^1.0.0",
-    "request": "^2.72.0",
     "spinn3r": "^1.0.0"
   },
   "repository": {
