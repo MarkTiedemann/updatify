@@ -33,16 +33,15 @@ updatify node
 
 updatify check npm
 
-# installs the newest npm version by executing:
+# installs the latest npm version by executing:
 # curl -L https://www.npmjs.org/install.sh | sh
 
 updatify npm
 
-# installs the newest npm version without
+# installs the latest npm version without
 # any additional checks
 #
-# this options is useful when your npm version
-# is broken
+# this options is useful if your npm is broken
 
 updatify npm --force
 ```
