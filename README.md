@@ -15,7 +15,6 @@ npm i -g updatify
 
 ```bash
 # checks whether a new node version is available
-# returns true if so; otherwise false
 
 updatify check node
 
@@ -29,7 +28,6 @@ updatify node
 
 ```bash
 # checks whether a new npm version is available
-# returns true if so; otherwise false
 
 updatify check npm
 
@@ -38,4 +36,4 @@ updatify check npm
 
 updatify npm
 ```
-**Note:** Requires [Git For Windows](https://git-for-windows.github.io/) and [curl](https://curl.haxx.se/).
+**Note:** Updating NPM requires `sh` (which comes with [Git For Windows](https://git-for-windows.github.io/), e.g.) and [`curl`](https://curl.haxx.se/).
