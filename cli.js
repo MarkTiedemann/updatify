@@ -4,10 +4,12 @@
 const { node, npm } = require('node-latest')
 const msi = require('node-msi')
 const { exec } = require('child_process')
-const spinner = require('spinn3r')('')
-const notifier = require('update-notifier')
 
+const notifier = require('update-notifier')
 notifier({ pkg: require('./package.json') }).notify()
+
+const spinner = require('spinn3r')('')
+const handleErr = err => spinner.fail(err)
 
 const args = process.argv.slice(2)
 
@@ -22,7 +24,7 @@ switch (args.shift()) {
             node.isLatest()
                 .then(is => is ? spinner.success('Node is up to date')
                                : spinner.fail('Node needs to be updated'))
-                .catch(err => spinner.fail(err))
+                .catch(handleErr)
         }
 
         else if ('npm' === check) {
@@ -30,7 +32,7 @@ switch (args.shift()) {
             npm.isLatest()
                 .then(is => is ? spinner.success('npm is up to date')
                                : spinner.fail('npm needs to be updated'))
-                .catch(err => spinner.fail(err))
+                .catch(handleErr)
         }
 
         else spinner.fail('Invalid command')
@@ -39,24 +41,22 @@ switch (args.shift()) {
 
     case 'node':
 
+        const updateNode = () => {
+            spinner.update('Downloading latest Node installer')
+            msi.fetch()
+                .then(path => {
+                    spinner.update('Starting latest Node installer')
+                    return msi.start(path)
+                })
+                .then(() => spinner.success('Latest Node installer started'))
+                .catch(handleErr)
+        }
+
         spinner.update('Checking latest Node version')
         node.isLatest()
-            .then(is => {
-                if (!is) {
-                    spinner.update('Downloading latest Node installer')
-                    msi.fetch()
-                        .then(path => {
-                            spinner.update('Starting latest Node installer')
-                            return msi.start(path)
-                        })
-                        .then(() => {
-                            spinner.success('Latest Node installer started')
-                        })
-                        .catch(err => spinner.fail(err))
-                }
-                else spinner.success('Node is up to date')
-            })
-            .catch(err => spinner.fail(err))
+            .then(is => is ? spinner.success('Node is up to date')
+                           : updateNode())
+            .catch(handleErr)
 
         break
 
@@ -79,7 +79,7 @@ switch (args.shift()) {
             npm.isLatest()
                 .then(is => is ? spinner.success('npm is up to date')
                                : updateNpm())
-                .catch(err => spinner.fail(err))
+                .catch(handleErr)
         }
 
         break
