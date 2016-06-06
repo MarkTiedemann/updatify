@@ -5,6 +5,9 @@ const { node, npm } = require('node-latest')
 const msi = require('node-msi')
 const { exec } = require('child_process')
 const spinner = require('spinn3r')('')
+const notifier = require('update-notifier')
+
+notifier({ pkg: require('./package.json') }).notify()
 
 const args = process.argv.slice(2)
 

@@ -17,7 +17,8 @@
   "dependencies": {
     "node-latest": "^1.0.0",
     "node-msi": "^1.0.0",
-    "spinn3r": "^1.0.0"
+    "spinn3r": "^1.0.0",
+    "update-notifier": "^0.7.0"
   },
   "repository": {
     "type": "git",
