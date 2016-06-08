@@ -49,7 +49,8 @@ updatify npm
 ### `updatify node`
 
 - `--check`: checks whether an update is available, but doesn't actually update node
-- `--dir` / `--directory` `<dir>`: sets the directory in which the installer is saved; *default:* `C:/Users/<User>/Downloads`
+- `--bits`: specifies whether the `32`-bit or `64`-bit version should be downloaded; *default*: `64`
+- `--dir` / `--directory` `<dir>`: specifies the directory in which the installer is saved; *default:* `C:/Users/<User>/Downloads`
 - `--dont-start` / `--download`: only downloads the installer, but doesn't start it
 - `--latest`: downloads (or, if the `--check` flag is set, checks for) the latest node version; please note that this flag may be omitted as downloading the latest version is the default behavior
 - `--lts` / `--long-term-support`: downloads (or, if the `--check` flag is set, checks for) the latest Long Term Support version
