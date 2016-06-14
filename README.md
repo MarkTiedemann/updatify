@@ -61,3 +61,9 @@ updatify npm
 - `--lts`: downloads (or, if the `--check` flag is set, checks for) the latest Long Term Support version
 - `--next` / `-n`: downloads (or, if the `--check` flag is set, checks for) the next npm version
 - `--force` / `-f`: installs the latest npm version by executing `curl -L https://www.npmjs.org/install.sh | sh` without any prior checks; this options is useful if your [npm is broken](https://github.com/npm/npm/wiki/Troubleshooting#if-your-npm-is-broken); however, it requires `sh` (which comes with [Git For Windows](https://git-for-windows.github.io/), for example) and [`curl`](https://curl.haxx.se/); note that this flag disregards the `--check`, `--lts` and `--next` flags; use with caution
+
+## License
+
+[WTFPL](http://www.wtfpl.net/) – Do What the F*ck You Want to Public License.
+
+Made with :heart: by [@MarkTiedemann](https://twitter.com/MarkTiedemannDE).
