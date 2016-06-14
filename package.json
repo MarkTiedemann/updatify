@@ -20,7 +20,7 @@
   "dependencies": {
     "minimist": "^1.2.0",
     "node-latest": "^3.1.0",
-    "node-msi": "^1.1.0",
+    "node-msi": "^1.1.1",
     "semver": "^5.1.0",
     "spinn3r": "^1.0.3",
     "update-notifier": "^1.0.0"
